@@ -180,16 +180,24 @@
 
         scene.background = new THREE.Color(0xffffff);
 
+        // Tornar isso reativo depois?
+        //const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const aspect = container.clientWidth / container.clientHeight;
         const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
-        //const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
         camera.position.z = 100;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, });
 
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        //renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.domElement.style.width = '100%';
+        renderer.domElement.style.height = '100%';
         container.appendChild(renderer.domElement); // Colocar dentro do container
+        console.log('Container size:', container.clientWidth, container.clientHeight);
+        console.log('Renderer canvas size:', renderer.domElement.width, renderer.domElement.height);
+        console.log('Camera position:', camera.position);
+
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
