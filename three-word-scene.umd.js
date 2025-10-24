@@ -206,6 +206,7 @@
         console.log('container.clientWidth:', container.clientWidth);
         console.log('container.clientHeight:', container.clientHeight);
         // 332 320
+        console.log('window.devicePixelRatio:', window.devicePixelRatio);
 
         renderer.setPixelRatio(window.devicePixelRatio || 1);
         //renderer.domElement.style.width = '100%';
