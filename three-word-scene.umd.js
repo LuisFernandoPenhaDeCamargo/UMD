@@ -234,20 +234,22 @@
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
 
+            // wordMesh.position.sub(center);
+            // baseMesh.position.sub(center);
+
+            const originMarker = new THREE.AxesHelper(2);
+            scene.add(originMarker);
+
+            // Marcador do centro do volume
+            const centerMarker = new THREE.Mesh(
+                new THREE.SphereGeometry(0.2),
+                new THREE.MeshBasicMaterial({ color: 0xff0000 })
+            );
+            centerMarker.position.copy(center);
+            scene.add(centerMarker);
+
             scene.add(wordMesh);
             scene.add(baseMesh);
-
-            // console.groupCollapsed('🔍 Scene Diagnostics');
-            console.log('📦 Container size:', container.clientWidth, container.clientHeight);
-            console.log('🎥 Camera position:', camera.position);
-            console.log('🎯 Controls target:', controls.target);
-            console.log('🔡 WordMesh center:', center);
-
-            const vFOV = THREE.MathUtils.degToRad(camera.fov); // campo de visão vertical em radianos
-            const height = 2 * Math.tan(vFOV / 2) * camera.position.z;
-            const width = height * camera.aspect;
-
-            console.log('📐 Camera viewport world-space:', { width, height });
 
             function animate() {
                 requestAnimationFrame(animate); // garante loop contínuo
@@ -261,7 +263,3 @@
 
     return ThreeWordScene;
 }));
-
-/*
-
-*/
