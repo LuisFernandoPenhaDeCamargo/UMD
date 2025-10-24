@@ -179,7 +179,7 @@
         const scene = new THREE.Scene();
 
         // scene.background = new THREE.Color(0xffffff);
-        scene.background = new THREE.Color(00000000);
+        scene.background = new THREE.Color(0o000000);
 
         // https://app.yampi.com.br/store/scripts/17869
         // - Precisa se tornar reativo
