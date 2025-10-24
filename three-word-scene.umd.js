@@ -180,9 +180,13 @@
 
         scene.background = new THREE.Color(0xffffff);
 
-        // Tornar isso reativo depois?
+        // - Precisa se tornar reativo
+        // - Não está centralizado
+        // - Verificar especificações, o que eu vou permitir rotar, por exemplo
         //const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const aspect = container.clientWidth / container.clientHeight;
+        // - A câmera está **olhando para ponto (0, 0, 0)** por padrão,
+        // - A câmera está em (x: 0, y: 0, z: 100).
         const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
 
         camera.position.z = 100;
@@ -230,6 +234,13 @@
             scene.add(wordMesh);
             scene.add(baseMesh);
 
+            console.groupCollapsed('🔍 Scene Diagnostics');
+            console.log('📦 Container size:', container.clientWidth, container.clientHeight);
+            console.log('🎥 Camera position:', camera.position);
+            console.log('🎯 Controls target:', controls.target);
+            console.log('🔡 WordMesh center:', center);
+            //console.log('📏 WordMesh size:', size);
+
             function animate() {
                 requestAnimationFrame(animate); // garante loop contínuo
                 controls.update();
@@ -242,3 +253,41 @@
 
     return ThreeWordScene;
 }));
+
+/*
+three-word-scene.umd.js:201 Container size: 1365 500
+three-word-scene.umd.js:202 Renderer canvas size: 1365 500
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 1365 500
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: 0, y: 6.123233995736766e-16, z: 10}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: 0, y: 0, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: 0, y: 0, z: 0}
+three-word-scene.umd.js:201 Container size: 1365 500
+three-word-scene.umd.js:202 Renderer canvas size: 1365 500
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}x: -5.143537772569724y: 2.2682742368416138z: 8.793133519150146[[Prototype]]: Object
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 1365 500
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6008036951074762, y: 0.5773527524167527, z: 9.99957145059373}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.667556482553482, y: 0.6415000036358832, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.667556482553482, y: 0.6415000036358833, z: 0}
+
+---
+
+three-word-scene.umd.js:201 Container size: 1365 500
+three-word-scene.umd.js:202 Renderer canvas size: 1365 500
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 1365 500
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: 0, y: 6.123233995736766e-16, z: 10}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: 0, y: 0, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: 0, y: 0, z: 0}
+three-word-scene.umd.js:201 Container size: 1365 500
+three-word-scene.umd.js:202 Renderer canvas size: 1365 500
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 1365 500
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6207676561500174, y: 0.5773528489737936, z: 9.999556398833551}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
+*/
