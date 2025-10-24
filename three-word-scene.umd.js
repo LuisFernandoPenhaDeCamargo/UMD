@@ -240,6 +240,11 @@
             console.log('🎯 Controls target:', controls.target);
             console.log('🔡 WordMesh center:', center);
             //console.log('📏 WordMesh size:', size);
+            const vFOV = THREE.MathUtils.degToRad(camera.fov); // campo de visão vertical em radianos
+            const height = 2 * Math.tan(vFOV / 2) * camera.position.z;
+            const width = height * camera.aspect;
+
+            console.log('📐 Camera viewport world-space:', { width, height });
 
             function animate() {
                 requestAnimationFrame(animate); // garante loop contínuo
@@ -290,4 +295,52 @@ three-word-scene.umd.js:238 📦 Container size: 1365 500
 three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6207676561500174, y: 0.5773528489737936, z: 9.999556398833551}
 three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
 three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
+
+---
+
+p:40 <link rel=preload> has an invalid `href` value
+p:522 ✅ 96 Hello World - script carregado e DOM pronto!
+p:284 🧭 Container encontrado.
+p:284 🧭 Container encontrado.
+p:274 ✅ Container encontrado na verificação inicial.
+p:329 🎨 Botão clicado: FUCSIA
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761318730503">​…​</div>​flex</div>​
+p:513 🧭 Container encontrado, injetando cena...
+p:391 🎬 Injetando cena 3D...
+p:460 ✅ Inicializando ThreeWordScene...
+three-word-scene.umd.js:201 Container size: 290 320
+three-word-scene.umd.js:202 Renderer canvas size: 290 320
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
+p:498 🎨 Cena 3D injetada e pronta (responsiva).
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 290 320
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6622335782879075, y: 0.5773530596100958, z: 9.999523563868552}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.7358111917972562, y: 0.6415000036358833, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.7358111917972563, y: 0.6415000036358833, z: 0}
+p:1 The resource https://king-assets.yampi.me/dooki/68f12d70a4038/68f12d70a403b.jpeg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
+
+---
+
+p:40 <link rel=preload> has an invalid `href` value
+p:522 ✅ 96 Hello World - script carregado e DOM pronto!
+p:284 🧭 Container encontrado.
+p:284 🧭 Container encontrado.
+p:274 ✅ Container encontrado na verificação inicial.
+p:329 🎨 Botão clicado: FUCSIA
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761318773365">​…​</div>​flex</div>​
+p:513 🧭 Container encontrado, injetando cena...
+p:391 🎬 Injetando cena 3D...
+p:460 ✅ Inicializando ThreeWordScene...
+three-word-scene.umd.js:201 Container size: 396 400
+three-word-scene.umd.js:202 Renderer canvas size: 396 400
+three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
+p:498 🎨 Cena 3D injetada e pronta (responsiva).
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​
+three-word-scene.umd.js:237 🔍 Scene Diagnostics
+three-word-scene.umd.js:238 📦 Container size: 396 400
+three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6622335782879075, y: 0.5773530596100958, z: 9.999523563868552}
+three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.7358111917972562, y: 0.6415000036358833, z: 0}
+three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.7358111917972563, y: 0.6415000036358833, z: 0}
+
 */
