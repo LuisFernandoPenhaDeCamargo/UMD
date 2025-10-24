@@ -176,6 +176,29 @@
             return group;
         }
 
+        function frameObjectToCamera(camera, object, margin = 1.2) {
+            const box = new THREE.Box3().setFromObject(object);
+            const size = box.getSize(new THREE.Vector3());
+            const center2 = box.getCenter(new THREE.Vector3());
+
+            // Fator de margem (1.2 = 20% de espaço extra)
+            const maxDim = Math.max(size.x, size.y, size.z) * margin;
+
+            // Converter FOV em radianos
+            const fov = (camera.fov * Math.PI) / 180;
+
+            // Calcular a distância ideal da câmera para que o objeto caiba verticalmente no frustum
+            const distance = maxDim / (2 * Math.tan(fov / 2));
+
+            // Atualizar posição da câmera e controles
+            camera.position.set(center2.x, center2.y, distance);
+            camera.lookAt(center2);
+
+            if (camera.updateProjectionMatrix) camera.updateProjectionMatrix();
+
+            return { box, center2, distance };
+        }
+
         const scene = new THREE.Scene();
 
         scene.background = new THREE.Color(0xffffff);
@@ -226,11 +249,10 @@
             const box = new THREE.Box3().setFromObject(wordMesh);
             const center = box.getCenter(new THREE.Vector3());
 
+            const { center2, distance } = frameObjectToCamera(camera, wordMesh);
+            console.log('📏 Camera auto-framed', { center2, distance });
+
             controls.target.copy(center);
-
-            camera.position.z = box.getSize(new THREE.Vector3()).length() * 0.6;
-            camera.lookAt(center);
-
             controls.update();
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
