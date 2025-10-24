@@ -229,13 +229,24 @@
             const box = new THREE.Box3().setFromObject(wordMesh);
             const center = box.getCenter(new THREE.Vector3());
 
+            const size = box.getSize(new THREE.Vector3());
+            const fov = camera.fov * (Math.PI / 180);
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const distance = (maxDim / 2) / Math.tan(fov / 2);
+
+            camera.position.copy(center.clone().add(new THREE.Vector3(0, 0, distance)));
+
             controls.target.copy(center);
+
+            console.log('Before controls.update:', camera.position.clone());
+
             controls.update();
+
+            console.log('After controls.update:', camera.position.clone());
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
 
-            // wordMesh.position.sub(center);
-            // baseMesh.position.sub(center);
+            console.log('camera.position:', camera.position);
 
             const originMarker = new THREE.AxesHelper(2);
             scene.add(originMarker);
