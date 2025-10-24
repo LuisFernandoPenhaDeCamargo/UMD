@@ -193,8 +193,17 @@
         const renderer = new THREE.WebGLRenderer({ antialias: true, });
 
         // renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(container.clientWidth, container.clientHeight);
+        //renderer.setSize(container.clientWidth, container.clientHeight);
+        //renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        // Canvas CSS
+        // Viewport do WebGL
+        // tamanho CSS do canvas vs. resolução interna (pixel ratio) vs. aspecto da câmera
+        renderer.setSize(container.clientWidth, container.clientHeight, false);
+
+        console.log('container.clientWidth:', container.clientWidth);
+        console.log('container.clientHeight:', container.clientHeight);
+
+        // renderer.setPixelRatio(window.devicePixelRatio || 1);
         //renderer.domElement.style.width = '100%';
         //renderer.domElement.style.height = '100%';
         container.appendChild(renderer.domElement); // Colocar dentro do container
