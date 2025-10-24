@@ -195,8 +195,8 @@
         // renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         renderer.setSize(container.clientWidth, container.clientHeight);
-        renderer.domElement.style.width = '100%';
-        renderer.domElement.style.height = '100%';
+        //renderer.domElement.style.width = '100%';
+        //renderer.domElement.style.height = '100%';
         container.appendChild(renderer.domElement); // Colocar dentro do container
 
         // Qual é a diferença entre a altura e o comprimento do container e a altura e comprimenta do renderer
