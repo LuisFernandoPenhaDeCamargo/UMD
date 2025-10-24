@@ -178,8 +178,8 @@
 
         const scene = new THREE.Scene();
 
-        // scene.background = new THREE.Color(0xffffff);
-        scene.background = new THREE.Color(0o000000);
+        scene.background = new THREE.Color(0xffffff);
+        // scene.background = new THREE.Color(0o000000);
 
         // https://app.yampi.com.br/store/scripts/17869
         // - Precisa se tornar reativo
@@ -201,13 +201,13 @@
         // tamanho CSS do canvas vs. resolução interna (pixel ratio) vs. aspecto da câmera
         renderer.setSize(container.clientWidth, container.clientHeight, false);
 
-        console.log('WILLIAM FEEDER');
+        console.log('WILLIAM FEEDER 2');
         console.log('container:', container);
         console.log('container.clientWidth:', container.clientWidth);
         console.log('container.clientHeight:', container.clientHeight);
         // 332 320
 
-        // renderer.setPixelRatio(window.devicePixelRatio || 1);
+        renderer.setPixelRatio(window.devicePixelRatio || 1);
         //renderer.domElement.style.width = '100%';
         //renderer.domElement.style.height = '100%';
         container.appendChild(renderer.domElement); // Colocar dentro do container
