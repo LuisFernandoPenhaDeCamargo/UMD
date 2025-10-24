@@ -227,6 +227,10 @@
             const center = box.getCenter(new THREE.Vector3());
 
             controls.target.copy(center);
+
+            camera.position.z = box.getSize(new THREE.Vector3()).length() * 0.6;
+            camera.lookAt(center);
+
             controls.update();
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
@@ -260,51 +264,13 @@
 }));
 
 /*
-three-word-scene.umd.js:201 Container size: 1365 500
-three-word-scene.umd.js:202 Renderer canvas size: 1365 500
-three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
-three-word-scene.umd.js:237 🔍 Scene Diagnostics
-three-word-scene.umd.js:238 📦 Container size: 1365 500
-three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: 0, y: 6.123233995736766e-16, z: 10}
-three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: 0, y: 0, z: 0}
-three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: 0, y: 0, z: 0}
-three-word-scene.umd.js:201 Container size: 1365 500
-three-word-scene.umd.js:202 Renderer canvas size: 1365 500
-three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}x: -5.143537772569724y: 2.2682742368416138z: 8.793133519150146[[Prototype]]: Object
-three-word-scene.umd.js:237 🔍 Scene Diagnostics
-three-word-scene.umd.js:238 📦 Container size: 1365 500
-three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6008036951074762, y: 0.5773527524167527, z: 9.99957145059373}
-three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.667556482553482, y: 0.6415000036358832, z: 0}
-three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.667556482553482, y: 0.6415000036358833, z: 0}
-
----
-
-three-word-scene.umd.js:201 Container size: 1365 500
-three-word-scene.umd.js:202 Renderer canvas size: 1365 500
-three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
-three-word-scene.umd.js:237 🔍 Scene Diagnostics
-three-word-scene.umd.js:238 📦 Container size: 1365 500
-three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: 0, y: 6.123233995736766e-16, z: 10}
-three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: 0, y: 0, z: 0}
-three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: 0, y: 0, z: 0}
-three-word-scene.umd.js:201 Container size: 1365 500
-three-word-scene.umd.js:202 Renderer canvas size: 1365 500
-three-word-scene.umd.js:203 Camera position: Vector3 {x: 0, y: 0, z: 100}
-three-word-scene.umd.js:237 🔍 Scene Diagnostics
-three-word-scene.umd.js:238 📦 Container size: 1365 500
-three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6207676561500174, y: 0.5773528489737936, z: 9.999556398833551}
-three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
-three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.6897384405136109, y: 0.6415000036358833, z: 0}
-
----
-
 p:40 <link rel=preload> has an invalid `href` value
 p:522 ✅ 96 Hello World - script carregado e DOM pronto!
 p:284 🧭 Container encontrado.
 p:284 🧭 Container encontrado.
 p:274 ✅ Container encontrado na verificação inicial.
 p:329 🎨 Botão clicado: FUCSIA
-p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761318730503">​…​</div>​flex</div>​
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761319478054">​…​</div>​flex</div>​
 p:513 🧭 Container encontrado, injetando cena...
 p:391 🎬 Injetando cena 3D...
 p:460 ✅ Inicializando ThreeWordScene...
@@ -318,6 +284,7 @@ three-word-scene.umd.js:238 📦 Container size: 290 320
 three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6622335782879075, y: 0.5773530596100958, z: 9.999523563868552}
 three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.7358111917972562, y: 0.6415000036358833, z: 0}
 three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.7358111917972563, y: 0.6415000036358833, z: 0}
+three-word-scene.umd.js:247 📐 Camera viewport world-space: {width: 13.90713903919681, height: 15.345808594975791}height: 15.345808594975791width: 13.90713903919681[[Prototype]]: Object
 p:1 The resource https://king-assets.yampi.me/dooki/68f12d70a4038/68f12d70a403b.jpeg was preloaded using link preload but not used within a few seconds from the window's load event. Please make sure it has an appropriate `as` value and it is preloaded intentionally.
 
 ---
@@ -328,7 +295,7 @@ p:284 🧭 Container encontrado.
 p:284 🧭 Container encontrado.
 p:274 ✅ Container encontrado na verificação inicial.
 p:329 🎨 Botão clicado: FUCSIA
-p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761318773365">​…​</div>​flex</div>​
+p:505 ✍️ Input text container atualizado: <div class=​"main-product-customization text-left" data-scene-injected=​"true">​…​</div>​<div class=​"-title">​ Personalizar produto ​</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26367">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<div class=​"customization">​…​</div>​<label for=​"customization-26369">​…​</label>​<input type=​"text" placeholder=​"Digite aqui..." maxlength=​"11" class data-listener-added=​"true">​<!----><div class=​"flex -between">​…​</div>​flex</div>​<!----><div class=​"three-scene-wrapper" data-injected-at=​"1761319499462">​…​</div>​flex</div>​
 p:513 🧭 Container encontrado, injetando cena...
 p:391 🎬 Injetando cena 3D...
 p:460 ✅ Inicializando ThreeWordScene...
@@ -342,5 +309,6 @@ three-word-scene.umd.js:238 📦 Container size: 396 400
 three-word-scene.umd.js:239 🎥 Camera position: Vector3 {x: -0.6622335782879075, y: 0.5773530596100958, z: 9.999523563868552}
 three-word-scene.umd.js:240 🎯 Controls target: Vector3 {x: -0.7358111917972562, y: 0.6415000036358833, z: 0}
 three-word-scene.umd.js:241 🔡 WordMesh center: Vector3 {x: -0.7358111917972563, y: 0.6415000036358833, z: 0}
+three-word-scene.umd.js:247 📐 Camera viewport world-space: {width: 15.192350509026033, height: 15.345808594975791}
 
 */
