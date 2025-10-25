@@ -199,8 +199,8 @@
         renderer.setSize(container.clientWidth, container.clientHeight, false);
 
         if (!VIEWPORT_CANVAS_DEBUG) {
-            console.log('FLAG');
-            // renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
+            console.log('FLAG 2');
+            renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
         }
         console.log('window.devicePixelRatio:', window.devicePixelRatio);
 
