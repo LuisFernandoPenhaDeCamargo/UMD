@@ -18,7 +18,9 @@
         const SCALE_FACTOR = 0.09;
         const HEIGHT_BASE = 1.5 * SCALE_FACTOR;
         const WIDTH_BASE = 15 * SCALE_FACTOR;
-        const DEBUG = false;
+        const MESH_DEBUG = false;
+        const VIEWPORT_CANVAS_DEBUG = false;
+        const CENTER_AXES_DEBUG = false;
 
         // Funções auxiliares
         function padWord(word, lengthDifference, fillChar) {
@@ -79,7 +81,7 @@
             leftSidedMesh.updateMatrix();
             rightSidedMesh.updateMatrix();
 
-            if (DEBUG) {
+            if (MESH_DEBUG) {
                 const group = new THREE.Group();
 
                 group.add(leftSidedMesh);
@@ -179,13 +181,14 @@
         const scene = new THREE.Scene();
 
         scene.background = new THREE.Color(0xffffff);
-        // scene.background = new THREE.Color(0o000000);
+
+        if (VIEWPORT_CANVAS_DEBUG) {
+            scene.background = new THREE.Color(0o000000);
+        }
 
         // https://app.yampi.com.br/store/scripts/17869
         // - Precisa se tornar reativo
-        // - Não está centralizado
         // - Verificar especificações, o que eu vou permitir rotar, por exemplo
-        // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const aspect = container.clientWidth / container.clientHeight;
         const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
 
@@ -193,33 +196,15 @@
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, });
 
-        // renderer.setSize(window.innerWidth, window.innerHeight);
-        //renderer.setSize(container.clientWidth, container.clientHeight);
-        //renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        // Canvas CSS
-        // Viewport do WebGL
-        // tamanho CSS do canvas vs. resolução interna (pixel ratio) vs. aspecto da câmera
         renderer.setSize(container.clientWidth, container.clientHeight, false);
 
-        console.log('WILLIAM FEEDER 2');
-        console.log('container:', container);
-        console.log('container.clientWidth:', container.clientWidth);
-        console.log('container.clientHeight:', container.clientHeight);
-        // 332 320
+        if (!VIEWPORT_CANVAS_DEBUG) {
+            console.log('FLAG');
+            // renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
+        }
         console.log('window.devicePixelRatio:', window.devicePixelRatio);
 
-        renderer.setPixelRatio(window.devicePixelRatio || 1);
-        //renderer.domElement.style.width = '100%';
-        //renderer.domElement.style.height = '100%';
         container.appendChild(renderer.domElement); // Colocar dentro do container
-
-        // Qual é a diferença entre a altura e o comprimento do container e a altura e comprimenta do renderer
-        // console.log('renderer.domElement.width:', renderer.domElement.width);
-        // console.log('renderer.domElement.height', renderer.domElement.height);
-        // console.log('Renderer canvas size:', renderer.domElement.width, renderer.domElement.height);
-        // - A câmera está **olhando para ponto (0, 0, 0)** por padrão,
-        // - A câmera está em (x: 0, y: 0, z: 100).
-        // console.log('Camera position:', camera.position);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
@@ -244,34 +229,25 @@
             const box = new THREE.Box3().setFromObject(wordMesh);
             const center = box.getCenter(new THREE.Vector3());
 
-//            const size = box.getSize(new THREE.Vector3());
-//            const fov = camera.fov * (Math.PI / 180);
-//            const maxDim = Math.max(size.x, size.y, size.z);
-//            const distance = (maxDim / 2) / Math.tan(fov / 2);
-//
-//            camera.position.copy(center.clone().add(new THREE.Vector3(0, 0, distance)));
-
             controls.target.copy(center);
-
-//            console.log('Before controls.update:', camera.position.clone());
-
             controls.update();
-
-//            console.log('After controls.update:', camera.position.clone());
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
 
+            if (CENTER_AXES_DEBUG) {
+                const originMarker = new THREE.AxesHelper(2);
 
-            const originMarker = new THREE.AxesHelper(2);
-            scene.add(originMarker);
+                scene.add(originMarker);
 
-            // Marcador do centro do volume
-            const centerMarker = new THREE.Mesh(
-                new THREE.SphereGeometry(0.2),
-                new THREE.MeshBasicMaterial({ color: 0xff0000 })
-            );
-            centerMarker.position.copy(center);
-            scene.add(centerMarker);
+                // Marcador do centro do volume
+                const centerMarker = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.2),
+                    new THREE.MeshBasicMaterial({ color: 0xff0000 })
+                );
+
+                centerMarker.position.copy(center);
+                scene.add(centerMarker);
+            }
 
             scene.add(wordMesh);
             scene.add(baseMesh);
