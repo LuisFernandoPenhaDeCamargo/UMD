@@ -7,7 +7,7 @@
         root.ThreeWordScene = factory(root.THREE, root.ThreeCSG);
     }
 }(typeof self !== 'undefined' ? self: this, function (THREE, ThreeCSG) {
-    function ThreeWordScene(container, { leftSidedText, rightSidedText }) {
+    async function ThreeWordScene(container, { leftSidedText, rightSidedText }) {
         if (!container) {
             console.error("Container inválido");
 
@@ -178,56 +178,74 @@
             return group;
         }
 
-        const scene = new THREE.Scene();
-
-        scene.background = new THREE.Color(0xffffff);
-
-        if (VIEWPORT_CANVAS_DEBUG) {
-            scene.background = new THREE.Color(0o000000);
-        }
-
-        const aspect = container.clientWidth / container.clientHeight;
-        const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
-
-        camera.position.z = 100;
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true, });
-
-        renderer.setSize(container.clientWidth, container.clientHeight, false);
-
-        if (!VIEWPORT_CANVAS_DEBUG) {
-            // console.log('FLAG 2');
-            renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
-        }
-
-        //console.log('window.devicePixelRatio:', window.devicePixelRatio);
-
-        container.appendChild(renderer.domElement); // Colocar dentro do container
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.1;
-        controls.rotateSpeed = 2;
-        controls.zoomSpeed = 1.2;
-        controls.panSpeed = 0.8;
-        controls.minDistance = 2;
-        controls.maxDistance = 10;
-
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-
-        light.position.set(0, 1, 1).normalize();
-        scene.add(light);
-
-        const loader = new THREE.FontLoader();
-
-        loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+        function onFontLoaded(font, leftSidedText, rightSidedText) {
             const { normalizedLeftSidedText, normalizedRightSidedText } = nomalizeData(leftSidedText, rightSidedText, 'X');
             const wordMesh = createWord(font, normalizedLeftSidedText, normalizedRightSidedText);
-            const box = new THREE.Box3().setFromObject(wordMesh);
-            const center = box.getCenter(new THREE.Vector3());
 
-            controls.target.copy(center);
+            return { normalizedLeftSidedText, wordMesh, };
+        }
+
+        async function createWordMesh({ leftSidedText, rightSidedText, }) {
+            const loader = new THREE.FontLoader();
+
+            // Retorna uma Promise para carregar fonte e criar mesh.
+            return new Promise((resolve) => {
+                loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
+                    const { normalizedLeftSidedText, wordMesh, } = onFontLoaded(font, leftSidedText, rightSidedText);
+
+                    resolve({ normalizedLeftSidedText, wordMesh, });
+                });
+            });
+        }
+
+        function setupScene(container) {
+            const scene = new THREE.Scene();
+
+            scene.background = new THREE.Color(VIEWPORT_CANVAS_DEBUG ? 0o000000 : 0xffffff);
+
+            const aspect = container.clientWidth / container.clientHeight;
+            const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
+
+            camera.position.z = 100;
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, });
+
+            renderer.setSize(container.clientWidth, container.clientHeight, false);
+
+            if (!VIEWPORT_CANVAS_DEBUG) {
+                // console.log('FLAG 2');
+                renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
+            }
+
+            //console.log('window.devicePixelRatio:', window.devicePixelRatio);
+
+            container.appendChild(renderer.domElement); // Colocar dentro do container
+
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.1;
+            controls.rotateSpeed = 2;
+            controls.zoomSpeed = 1.2;
+            controls.panSpeed = 0.8;
+            controls.minDistance = 2;
+            controls.maxDistance = 10;
+
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+
+            light.position.set(0, 1, 1).normalize();
+            scene.add(light);
+
+            return { scene, camera, renderer, controls, };
+        }
+
+        async function initialMesh({ leftSidedText, rightSidedText, controls, }) {
+            const { normalizedLeftSidedText, wordMesh, } = await createWordMesh({ leftSidedText, rightSidedText, });
+            // Centraliza a câmera no centro do mesh.
+            const box = new THREE.Box3().setFromObject(wordMesh);
+            const centerOfTheMesh = box.getCenter(new THREE.Vector3());
+
+            controls.target.copy(centerOfTheMesh);
             controls.update();
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
@@ -237,7 +255,7 @@
 
                 scene.add(originMarker);
 
-                // Marcador do centro do volume
+                // Marcador do centro do volume.
                 const centerMarker = new THREE.Mesh(
                     new THREE.SphereGeometry(0.2),
                     new THREE.MeshBasicMaterial({ color: 0xff0000 })
@@ -250,14 +268,56 @@
             scene.add(wordMesh);
             scene.add(baseMesh);
 
-            function animate() {
-                requestAnimationFrame(animate); // garante loop contínuo
-                controls.update();
-                renderer.render(scene, camera);
-            }
+            return { wordMesh, baseMesh, };
+        }
 
-            animate();
-        });
+        // Criar uma função só para centralizar a malha.
+        async function updateMesh({ scene, leftSidedText, rightSidedText, controls, }) {
+            // Remove a malha antiga.
+            if (state.wordMesh) scene.remove(state.wordMesh);
+            if (state.baseMesh) scene.remove(state.baseMesh);
+
+            // Cria nova malha.
+            const { normalizedLeftSidedText, wordMesh: newWordMesh, } = await createWordMesh({ leftSidedText, rightSidedText, });
+            // Centraliza a malha.
+            const box = new THREE.Box3().setFromObject(newWordMesh);
+            const centerOfTheMesh = box.getCenter(new THREE.Vector3());
+
+            controls.target.copy(centerOfTheMesh);
+            controls.update();
+
+            const newBaseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
+
+            scene.add(newWordMesh);
+            scene.add(newBaseMesh);
+            state.wordMesh = newWordMesh;
+            state.baseMesh = newBaseMesh;
+        }
+
+        // Inicia o render loop.
+        function animate({ controls, renderer, scene, camera, }) {
+            requestAnimationFrame(() => animate({ controls, renderer, scene, camera, })); // garante loop contínuo
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        const state = {
+            wordMesh: null,
+            baseMesh: null,
+        };
+
+        const { scene, camera, renderer, controls, } = setupScene(container);
+        let { wordMesh, baseMesh, } = await initialMesh({ leftSidedText, rightSidedText, controls, });
+
+        state.wordMesh = wordMesh;
+        state.baseMesh = baseMesh;
+
+        animate({ scene, camera, renderer, controls, });
+
+        // Retorna objetos e funções que podem ser usados fora.
+        return {
+            updateMesh: async (leftSidedText, rightSidedText) => await updateMesh({ scene, leftSidedText, rightSidedText, controls, }),
+        };
     }
 
     return ThreeWordScene;
