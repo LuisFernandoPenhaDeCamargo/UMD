@@ -186,9 +186,6 @@
             scene.background = new THREE.Color(0o000000);
         }
 
-        // https://app.yampi.com.br/store/scripts/17869
-        // - Precisa se tornar reativo
-        // - Verificar especificações, o que eu vou permitir rotar, por exemplo
         const aspect = container.clientWidth / container.clientHeight;
         const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
 
@@ -199,10 +196,11 @@
         renderer.setSize(container.clientWidth, container.clientHeight, false);
 
         if (!VIEWPORT_CANVAS_DEBUG) {
-            console.log('FLAG 2');
+            // console.log('FLAG 2');
             renderer.setPixelRatio(window.devicePixelRatio || 1); // FLAG
         }
-        console.log('window.devicePixelRatio:', window.devicePixelRatio);
+
+        //console.log('window.devicePixelRatio:', window.devicePixelRatio);
 
         container.appendChild(renderer.domElement); // Colocar dentro do container
 
