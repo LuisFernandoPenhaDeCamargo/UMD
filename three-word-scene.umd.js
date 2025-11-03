@@ -314,7 +314,7 @@
 
         animate({ scene, camera, renderer, controls, });
 
-        console.log("✅ Returning scene instance");
+        // console.log("✅ Returning scene instance");
 
         // Retorna objetos e funções que podem ser usados fora.
         return {
