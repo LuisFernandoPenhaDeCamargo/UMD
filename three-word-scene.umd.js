@@ -314,6 +314,8 @@
 
         animate({ scene, camera, renderer, controls, });
 
+        console.log("✅ Returning scene instance");
+
         // Retorna objetos e funções que podem ser usados fora.
         return {
             updateMesh: async (leftSidedText, rightSidedText) => await updateMesh({ scene, leftSidedText, rightSidedText, controls, }),
