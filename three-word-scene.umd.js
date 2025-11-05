@@ -179,7 +179,7 @@
         }
 
         function onFontLoaded(font, leftSidedText, rightSidedText) {
-            const { normalizedLeftSidedText, normalizedRightSidedText } = nomalizeData(leftSidedText, rightSidedText, 'X');
+            const { normalizedLeftSidedText, normalizedRightSidedText } = nomalizeData(leftSidedText, rightSidedText, '♥');
             const wordMesh = createWord(font, normalizedLeftSidedText, normalizedRightSidedText);
 
             return { normalizedLeftSidedText, wordMesh, };
