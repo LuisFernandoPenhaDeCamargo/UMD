@@ -190,7 +190,7 @@
 
             // Retorna uma Promise para carregar fonte e criar mesh.
             return new Promise((resolve) => {
-                loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', (font) => {
+                    loader.load('https://luisfernandopenhadecamargo.github.io/UMD/LiberationMono-Bold-Heart.typeface.json', (font) => {
                     const { normalizedLeftSidedText, wordMesh, } = onFontLoaded(font, leftSidedText, rightSidedText);
 
                     resolve({ normalizedLeftSidedText, wordMesh, });
