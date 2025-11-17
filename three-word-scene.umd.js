@@ -430,7 +430,7 @@ const angleB =  Math.PI / 4;
 let t = 0;
 
 function animate({ controls, renderer, scene, camera }) {
-    t += 0.008;
+    t += 0.01;
 
     const s = (Math.sin(t) + 1) / 2; // 0 → 1 → 0
     const angle = angleA * (1 - s) + angleB * s;
