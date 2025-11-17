@@ -428,9 +428,14 @@ const angleA = -Math.PI / 4;
 const angleB =  Math.PI / 4;
 
 let t = 0;
+let last = performance.now();
 
 function animate({ controls, renderer, scene, camera }) {
-    t += 0.01;
+    const now = performance.now();
+    const delta = (now - last) / 1000; // segundos
+    last = now;
+
+    t += delta * 0.5; // 0.5 = velocidade desejada (ajuste à vontade)
 
     const s = (Math.sin(t) + 1) / 2; // 0 → 1 → 0
     const angle = angleA * (1 - s) + angleB * s;
