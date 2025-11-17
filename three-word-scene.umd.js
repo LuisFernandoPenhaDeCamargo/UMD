@@ -324,7 +324,8 @@
             // Distância ideal é o maior eixo * fator.
             const maxDim = Math.max(size.x, size.y, size.z);
 
-            const SAFE_FACTOR = 1.25;
+            // const SAFE_FACTOR = 1.25;
+            const SAFE_FACTOR = 2;
             const fovInRadians = (camera.fov * Math.PI) / 180;
             const idealDistance = (maxDim * SAFE_FACTOR) / Math.sin(fovInRadians);
 
