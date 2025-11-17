@@ -324,8 +324,7 @@
             // Distância ideal é o maior eixo * fator.
             const maxDim = Math.max(size.x, size.y, size.z);
 
-            // const SAFE_FACTOR = 1.25;
-            const SAFE_FACTOR = 5;
+            const SAFE_FACTOR = 1.25;
             const fovInRadians = (camera.fov * Math.PI) / 180;
             const idealDistance = (maxDim * SAFE_FACTOR) / Math.sin(fovInRadians);
 
@@ -338,7 +337,8 @@
             const angle = THREE.MathUtils.degToRad(45);
 
             // Armazena para animação
-orbitRadius = radius;
+// orbitRadius = radius;
+orbitRadius = idealDistance;
 orbitHeight = size.y * 0.35;
 centerOfTheMesh.copy(centerOfTheMesh);
 
