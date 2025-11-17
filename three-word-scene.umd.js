@@ -323,9 +323,11 @@
 
             // Distância ideal é o maior eixo * fator.
             const maxDim = Math.max(size.x, size.y, size.z);
-            // 11 scrolls
-            // um pouco pra cima
-            // um pouco pra esquerda
+
+            const SAFE_FACTOR = 1.25;
+            const fovInRadians = (camera.fov * Math.PI) / 180;
+            const idealDistance = (maxDim * SAFE_FACTOR) / Math.sin(fovInRadians);
+
             const scrollFactor = 0.55;
             const radius = maxDim * (1.8 - scrollFactor); // Antes era 1.4 - muito longe.
             // const orbitRadius = maxDim * 1.1;
@@ -340,8 +342,8 @@ orbitHeight = size.y * 0.35;
 centerOfTheMesh.copy(centerOfTheMesh);
 
 // Posição inicial da câmera
-camera.position.x = centerOfTheMesh.x + Math.sin(angle) * orbitRadius;
-camera.position.z = centerOfTheMesh.z + Math.cos(angle) * orbitRadius;
+camera.position.x = centerOfTheMesh.x + Math.sin(angle) * idealDistance;
+camera.position.z = centerOfTheMesh.z + Math.cos(angle) * idealDistance;
 camera.position.y = centerOfTheMesh.y + orbitHeight;
 
 // Ajuste lateral
