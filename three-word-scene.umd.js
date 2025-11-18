@@ -269,7 +269,7 @@
 
             const aspect = container.clientWidth / container.clientHeight;
             // const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
-            const camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 2000);
+            const camera = new THREE.PerspectiveCamera(35 * (400/container.clientHeight), aspect, 0.1, 2000);
 
             camera.position.z = 100; // FLAG
 
@@ -356,7 +356,9 @@ camera.lookAt(centerOfTheMesh);
 
             const baseMesh = createBase(normalizedLeftSidedText.length, WIDTH_BASE, HEIGHT_BASE);
 
-            camera.fov = 22;
+            // cp ../alvaro/three-word-scene.umd.js . && git add . && git commit -m '18/11/2025' && git push origin main
+            // camera.fov = 22;
+            camera.fov = 27;
             camera.updateProjectionMatrix();
 
 // Ficou amazing, mas a luz precisa se 
