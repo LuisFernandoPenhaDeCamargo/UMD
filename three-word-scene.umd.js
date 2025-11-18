@@ -267,7 +267,7 @@
 
             scene.background = new THREE.Color(VIEWPORT_CANVAS_DEBUG ? 0o000000 : 0xffffff);
 
-            const aspect = (container.clientWidth / container.clientHeight) * 2;
+            const aspect = container.clientWidth / container.clientHeight * 2;
             // const camera = new THREE.PerspectiveCamera(75, aspect, 0.1, 1000);
             const camera = new THREE.PerspectiveCamera(35, aspect, 0.1, 2000);
 
@@ -275,7 +275,7 @@
 
             const renderer = new THREE.WebGLRenderer({ antialias: true, });
 
-            renderer.setSize(container.clientWidth, container.clientHeight, false);
+            renderer.setSize(container.clientWidth, container.clientHeight * 2, false);
 
             if (!VIEWPORT_CANVAS_DEBUG) {
                 renderer.setPixelRatio(window.devicePixelRatio || 1);
