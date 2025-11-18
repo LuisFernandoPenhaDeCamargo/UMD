@@ -358,7 +358,7 @@ camera.lookAt(centerOfTheMesh);
 
             // cp ../alvaro/test-three-word-scene.umd.js . && git add . && git commit -m '18/11/2025' && git push origin main
             // camera.fov = 22;
-            camera.fov = 35;
+            camera.fov = 30;
             camera.updateProjectionMatrix();
 
 // Ficou amazing, mas a luz precisa se 
